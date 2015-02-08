@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Timeable:</strong>
+  <%= @meeting.timeable_id %>
+</p>
+
+<p>
+  <strong>Timeable type:</strong>
+  <%= @meeting.timeable_type %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @meeting.location %>
+</p>
+
+<p>
+  <strong>Weekday:</strong>
+  <%= @meeting.weekday %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @meeting.start_time %>
+</p>
+
+<p>
+  <strong>End time:</strong>
+  <%= @meeting.end_time %>
+</p>
+
+<%= link_to 'Edit', edit_meeting_path(@meeting) %> |
+<%= link_to 'Back', meetings_path %>
