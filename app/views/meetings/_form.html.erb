@@ -12,12 +12,12 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :timeable_id %><br>
-    <%= f.number_field :timeable_id %>
+    <%= f.label :meetable_id %><br>
+    <%= f.number_field :meetable_id %>
   </div>
   <div class="field">
-    <%= f.label :timeable_type %><br>
-    <%= f.number_field :timeable_type %>
+    <%= f.label :meetable_type %><br>
+    <%= f.text_field :meetable_type %>
   </div>
   <div class="field">
     <%= f.label :location %><br>
@@ -25,7 +25,7 @@
   </div>
   <div class="field">
     <%= f.label :weekday %><br>
-    <%= f.number_field :weekday %>
+    <%= f.text_field :weekday %>
   </div>
   <div class="field">
     <%= f.label :start_time %><br>

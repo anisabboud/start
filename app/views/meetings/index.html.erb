@@ -3,8 +3,8 @@
 <table>
   <thead>
     <tr>
-      <th>Timeable</th>
-      <th>Timeable type</th>
+      <th>Meetable</th>
+      <th>Meetable type</th>
       <th>Location</th>
       <th>Weekday</th>
       <th>Start time</th>
@@ -16,8 +16,8 @@
   <tbody>
     <% @meetings.each do |meeting| %>
       <tr>
-        <td><%= meeting.timeable_id %></td>
-        <td><%= meeting.timeable_type %></td>
+        <td><%= meeting.meetable_id %></td>
+        <td><%= meeting.meetable_type %></td>
         <td><%= meeting.location %></td>
         <td><%= meeting.weekday %></td>
         <td><%= meeting.start_time %></td>
