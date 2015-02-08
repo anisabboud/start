@@ -28,4 +28,4 @@ def STYLE(name, value):
   return '//*[contains(@style, "%s:%s") or contains(@style, "%s: %s") or contains(@style, "%s:%s;") or contains(@style, "%s: %s;")]' % (
     name, value, name, value, name, value, name, value)
 
-print Scrape('https://ntst.umd.edu/soc/201501/CMSC', CLASS('course-id'))
+print Scrape('https://ntst.umd.edu/soc/201501/CMSC', CLASS('.row'))
