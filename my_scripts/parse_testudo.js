@@ -1,11 +1,3 @@
-if(typeof(String.prototype.trim) === "undefined")
-{
-    String.prototype.trim = function() 
-    {
-        return String(this).replace(/^\s+|\s+$/g, '');
-    };
-}
-
 $('.course').each(function() {
   console.log($(this).attr('id'));
   console.log($(this).find('.course-title').text());
