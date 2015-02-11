@@ -6,3 +6,58 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+require 'json'
+
+file = File.read("my_scripts/master.json");
+data = JSON.parse(file);
+weekday_map = {
+	'M' => 'Monday',
+	'Tu' => 'Tuesday',
+	'W' => 'Wednesday',
+	'Th' => 'Thursday',
+	'F' => 'Friday',
+	'Sa' => 'Saturday',
+	'Su' => 'Sunday'
+}
+data.each do |course, course_info|
+	course = Course.new(
+		department: course[0..3],
+		number: course[4..8],
+		name: course_info['name'],
+		university_id: 1
+	)
+
+	course.save
+
+	# create a seperate section record for each section
+	course_info['sections'].each do |sec, sec_info|
+		begin
+			instructor_record = course.instructors.build( title: "professor", name: sec_info['instructor'], course: course )
+		rescue ActiveRecord::RecordNotUnique => e
+			instructor_record = Instructor.where(name: sec_info['instructor']).first	
+		end
+
+		instructor_record.save
+		course.save
+
+		section_record = course.sections.build(
+			number: sec,
+			instructor: instructor_record
+		) 
+
+		# create a meetable record for each day 
+		sec_info['meetings'].each do |time, days|
+			days.each do |day|
+				section_record.meetings.build(
+					location: sec_info['location'],
+					weekday: weekday_map[day],
+					start_time: time.split("-")[0],
+					end_time: time.split("-")[1]
+				)
+			end
+		end
+		section_record.save
+	end
+
+	course.save
+end
