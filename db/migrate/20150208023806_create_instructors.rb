@@ -7,6 +7,6 @@ class CreateInstructors < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :instructors, :name, unique: true
+    add_index :instructors, [:course_id, :name], unique: true
   end
 end

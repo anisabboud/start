@@ -25,7 +25,11 @@ function parseByDepartment(i, level) {
           master[course]['sections'][secId]['meetings'] = {};
 
           $(this).find('.class-days-container .row').each(function() {
-            master[course]['sections'][secId]['meetings'][$(this).find('.class-start-time').text() + "-" + $(this).find('.class-end-time').text()] = $(this).find('.section-days').text().split(/(?=[A-Z])/);
+            var start_time = $(this).find('.class-start-time').text();
+            var end_time = $(this).find('.class-end-time').text();
+            if (start_time !== "") {
+              master[course]['sections'][secId]['meetings'][start_time + "-" + end_time] = $(this).find('.section-days').text().split(/(?=[A-Z])/);
+            }
             master[course]['sections'][secId]['location'] = $(this).find('.building-code').text() + $(this).find('.class-room').text();
             master[course]['sections'][secId]['instructor'] = instructor;
           });

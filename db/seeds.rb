@@ -29,26 +29,15 @@ data.each do |course, course_info|
 
 	course.save
 
+	
 	# create a seperate section record for each section
 	course_info['sections'].each do |sec, sec_info|
 		begin
 			instructor_record = course.instructors.build( title: "professor", name: sec_info['instructor'], course: course )
+			instructor_record.save
 		rescue ActiveRecord::RecordNotUnique => e
-			instructor_record = Instructor.where(name: sec_info['instructor']).first	
+			instructor_record = Instructor.where(name: sec_info['instructor'], course: course).first
 		end
-
-		instructor_record.save
-
-		instructor_record.meetings.build(
-					location: nil, 
-					weekday: nil,
-					start_time: nil,
-					end_time: nil,
-					meetable_id: instructor_record,
-					meetable_type: "Instructor"
-		)
-
-		instructor_record.save
 
 		section_record = course.sections.build(
 			number: sec,
@@ -56,8 +45,10 @@ data.each do |course, course_info|
 		) 
 
 		section_record.save
+
 		puts section_record.meetings.inspect
 		puts instructor_record.meetings.inspect
+
 		# create a meetable record for each day 
 		sec_info['meetings'].each do |time, days|
 			days.each do |day|
@@ -71,9 +62,12 @@ data.each do |course, course_info|
 				)
 			end
 		end
+
 		puts section_record.meetings.inspect
 		puts instructor_record.meetings.inspect
+
 		section_record.save
+		
 		puts "HERE"
 		puts section_record.meetings.inspect
 		puts instructor_record.meetings.inspect
