@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :courses
+      resources :courses, :defaults => {format: "json"}
       get '/:university/:department/:course_number/:section', to: 'course_data#show'
     end
   end

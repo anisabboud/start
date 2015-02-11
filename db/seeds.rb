@@ -38,13 +38,26 @@ data.each do |course, course_info|
 		end
 
 		instructor_record.save
-		course.save
+
+		instructor_record.meetings.build(
+					location: nil, 
+					weekday: nil,
+					start_time: nil,
+					end_time: nil,
+					meetable_id: instructor_record,
+					meetable_type: "Instructor"
+		)
+
+		instructor_record.save
 
 		section_record = course.sections.build(
 			number: sec,
 			instructor: instructor_record
 		) 
 
+		section_record.save
+		puts section_record.meetings.inspect
+		puts instructor_record.meetings.inspect
 		# create a meetable record for each day 
 		sec_info['meetings'].each do |time, days|
 			days.each do |day|
@@ -52,12 +65,20 @@ data.each do |course, course_info|
 					location: sec_info['location'],
 					weekday: weekday_map[day],
 					start_time: time.split("-")[0],
-					end_time: time.split("-")[1]
+					end_time: time.split("-")[1],
+					meetable_id: section_record,
+					meetable_type: "Section"
 				)
 			end
 		end
+		puts section_record.meetings.inspect
+		puts instructor_record.meetings.inspect
 		section_record.save
+		puts "HERE"
+		puts section_record.meetings.inspect
+		puts instructor_record.meetings.inspect
 	end
 
 	course.save
 end
+
