@@ -29,7 +29,6 @@ data.each do |course, course_info|
 
 	course.save
 
-	
 	# create a seperate section record for each section
 	course_info['sections'].each do |sec, sec_info|
 		begin
@@ -46,9 +45,6 @@ data.each do |course, course_info|
 
 		section_record.save
 
-		puts section_record.meetings.inspect
-		puts instructor_record.meetings.inspect
-
 		# create a meetable record for each day 
 		sec_info['meetings'].each do |time, days|
 			days.each do |day|
@@ -63,14 +59,8 @@ data.each do |course, course_info|
 			end
 		end
 
-		puts section_record.meetings.inspect
-		puts instructor_record.meetings.inspect
-
 		section_record.save
-		
-		puts "HERE"
-		puts section_record.meetings.inspect
-		puts instructor_record.meetings.inspect
+
 	end
 
 	course.save
